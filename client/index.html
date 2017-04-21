@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>memo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css">
+    <script src="https://unpkg.com/vue@2.2.6"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+  <div id="memoapp">
+    <div class="memoheader">
+      <div class="columns is-mobile">
+       <div class="column is-2 is-offset-4"><h2>memo</h2></div>
+         <div class="column buttons is-2 is-offset-5"> <a class="button is-white" @click='modalon()'>new memo</a></div>
+     </div>
+    </div>
+    <div class="columns is-multiline">
+        <div class="column is-6 is-half" v-for='memo in memos'>
+            <div class="box">
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>title : </strong> <strong>{{memo.title}}</strong>
+                                <br> {{memo.memo}}
+                            </p>
+                        </div>
+                            <a class="button is-primary" @click='modalediton(memo._id)'>edit</a>
+                            <a class="button is-primary" @click='deletememo(memo._id)'>delete</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal input -->
+    <div class='modal' v-bind:class="{'is-active':stye.isActive}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">New memo</p>
+      <button class="delete" @click='modaloff()' ></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+       <label class="label">title</label>
+       <p class="control">
+         <input class="input" type="text" placeholder="Text input" v-model='newmemo.title'>
+       </p>
+      </div>
+      <div class="field">
+        <label class="label">memo</label>
+        <p class="control">
+          <textarea class="textarea" placeholder="Textarea" v-model='newmemo.memo'></textarea>
+        </p>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <a class="button is-success" @click='savememo()'>Save</a>
+      <a class="button" @click='modaloff()'>Cancel</a>
+    </footer>
+    </div>
+    </div>
+
+    <!-- modal edit -->
+    <div class='modal' v-bind:class="{'is-active':stye.isActiveEdit}">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Edit memo</p>
+      <button class="delete" @click='modaleditoff()' ></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+       <label class="label">title</label>
+       <p class="control">
+         <input class="input" type="text" placeholder="Text input" v-model='editmemo.title'>
+       </p>
+      </div>
+      <div class="field">
+        <label class="label">memo</label>
+        <p class="control">
+          <textarea class="textarea" placeholder="Textarea" v-model='editmemo.memo'></textarea>
+        </p>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <a class="button is-success" @click='saveedit()'>Save</a>
+      <a class="button" @click='modaleditoff()'>Cancel</a>
+    </footer>
+    </div>
+    </div>
+
+  </div>
+
+</body>
+<style>
+    .memoheader {
+        background-color: black;
+        height: 80px;
+    }
+    h2{
+      font-size: 30px;
+      color: white;
+    }
+    .column{
+      padding: 0px;
+      margin-top: 20px;
+    }
+    .buttons{
+     margin-top:27px;
+    }
+</style>
+<script type="text/javascript" src='./js/script.js'></script>
+
+</html>
